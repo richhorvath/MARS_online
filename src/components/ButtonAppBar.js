@@ -19,7 +19,13 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar({
+  onBuild,
+  onExecute,
+  onNext,
+  onBack,
+  onRestart,
+}) {
   const classes = useStyles();
 
   return (
@@ -37,6 +43,11 @@ export default function ButtonAppBar() {
           <Typography variant="h6" className={classes.title}>
             Pluto Online
           </Typography>
+          <Button onClick={onBuild}>Build</Button>
+          <Button onClick={onExecute}>Execute</Button>
+          <Button onClick={onNext}>Next</Button>
+          <Button onClick={onBack}>Back</Button>
+          <Button onClick={onRestart}>Restart</Button>
         </Toolbar>
       </AppBar>
     </div>
