@@ -1,4 +1,14 @@
 const ISA = require("./ISA.js");
+/**
+ *
+ * @param {*} operation
+ * @param {*} registers
+ * @param {*} setRegisters
+ * @param {*} memory
+ * @param {*} setMemory
+ * Splits the input line by an empty array and uses switch statement to
+ * call the correct opcode
+ */
 export default function handleOperations(
   operation,
   registers,

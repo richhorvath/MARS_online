@@ -10,6 +10,7 @@ import isaMap from "../utils/instructionSetTable.js";
 import dec2bin6 from "../utils/dec2Bin6.js";
 
 import "./styles.css";
+
 export default function App() {
   const [instructions, setInstructions] = useState("");
   const [instList, setInstList] = useState([]);
@@ -24,6 +25,7 @@ export default function App() {
   };
   const [memory, setMemory] = useState(initMem());
 
+  // updates the highlighted intruction in the instruction table
   useEffect(() => {
     //TODO: handle instruction edge cases 0 < and current > instList
     if (document.getElementById("inst" + currentInst))
@@ -31,6 +33,11 @@ export default function App() {
         "yellow";
   }, [currentInst]);
 
+  /**
+   * click handler for build button, sets the current instruction to 0,
+   * splits the input by newline escape and creates an array of instructions,
+   * looping through the array to build and initialize an instruction array of instrustion objects
+   */
   const onBuild = () => {
     setCurrentInst(0);
     let instr = instructions;
@@ -48,6 +55,10 @@ export default function App() {
     setInstList(temp);
   };
 
+  /**
+   * Execute onClick handlers. gets the instruction element by ID and highlights it passes the first
+   * instruction to handle operations
+   */
   const onExecute = () => {
     //display instructions in stepper
     document.getElementById("inst" + currentInst).style.backgroundColor =
@@ -61,6 +72,10 @@ export default function App() {
     );
   };
 
+  /**
+   * calls next set of operations, changes the highlight for the current operation back
+   * increments current instruction
+   */
   const onNext = () => {
     //execute current instructions
     document.getElementById("inst" + currentInst).style.backgroundColor =
@@ -75,6 +90,9 @@ export default function App() {
     setCurrentInst(currentInst + 1);
   };
 
+  /**
+   * performs the opposite of onNext
+   */
   const onBack = () => {
     document.getElementById("inst" + currentInst).style.backgroundColor =
       "white";
@@ -89,6 +107,9 @@ export default function App() {
     setCurrentInst(currentInst - 1);
   };
 
+  /**
+   * resets all state variables and highlights
+   */
   const onRestart = () => {
     document.getElementById("inst" + currentInst).style.backgroundColor =
       "white";
@@ -103,6 +124,10 @@ export default function App() {
     onBuild();
   };
 
+  /**
+   * returns all application components passing in state variables and functions as
+   * props to components
+   */
   return (
     <div className="main-container">
       <ButtonAppBar

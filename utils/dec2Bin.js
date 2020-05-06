@@ -1,3 +1,6 @@
+/**
+ *converts decimal to 8 digit binary
+ */
 export default function dec2bin(dec) {
   let prefix = "00000000";
   dec = dec.toString(2);

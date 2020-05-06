@@ -1,31 +1,26 @@
-# empty-project
+# Pluto Online
 
-Empty project.
+Mars Mips like ISA emulator
 
 ## Building and running on localhost
 
 First install dependencies:
 
+Download the latested node environment then:
+
 ```sh
 npm install
-```
+npm install nodemon -g
 
-To create a production build:
-
-```sh
-npm run build-prod
 ```
 
 To create a development build:
 
 ```sh
+npm run server-dev
 npm run build-dev
 ```
 
 ## Running
 
-Open the file `dist/index.html` in your browser
-
-## Credits
-
-Made with [createapp.dev](https://createapp.dev/)
+Open a browers and navigate to `localhost:3000` in your browser
