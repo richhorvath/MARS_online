@@ -6,17 +6,23 @@ import RegisterTable from "./components/RegisterTable.js";
 import handleOperations from "../utils/handleOperations.js";
 import MemoryTable from "./components/MemoryTable.js";
 import impregisters from "../utils/registers.js";
+import isaMap from "../utils/instructionSetTable.js";
+import dec2bin6 from "../utils/dec2Bin6.js";
+
 import "./styles.css";
 export default function App() {
   const [instructions, setInstructions] = useState("");
   const [instList, setInstList] = useState([]);
   const [currentInst, setCurrentInst] = useState(0);
   const [registers, setRegisters] = useState(impregisters);
-  let initMem = [];
-  for (let i = 0; i < 256; i++) {
-    initMem.push(0);
-  }
-  const [memory, setMemory] = useState(initMem);
+  const initMem = () => {
+    let mem = [];
+    for (let i = 0; i < 256; i++) {
+      mem.push(0);
+    }
+    return mem;
+  };
+  const [memory, setMemory] = useState(initMem());
 
   useEffect(() => {
     //TODO: handle instruction edge cases 0 < and current > instList
@@ -26,14 +32,16 @@ export default function App() {
   }, [currentInst]);
 
   const onBuild = () => {
+    setCurrentInst(0);
     let instr = instructions;
     let arr = instr.split("\n");
     let temp = [];
     for (let i = 0; i < arr.length; i++) {
+      let tempInst = arr[i].split(" ");
       temp.push({
         id: i,
         memory: i,
-        binInst: "to be done",
+        binInst: dec2bin6(isaMap[tempInst[0]]),
         source: arr[i],
       });
     }
@@ -70,8 +78,9 @@ export default function App() {
   const onBack = () => {
     document.getElementById("inst" + currentInst).style.backgroundColor =
       "white";
+
     handleOperations(
-      instList[currentInst + 1].source,
+      instList[currentInst - 1].source,
       registers,
       setRegisters,
       memory,
@@ -84,6 +93,14 @@ export default function App() {
     document.getElementById("inst" + currentInst).style.backgroundColor =
       "white";
     setCurrentInst(0);
+    for (let reg in registers) {
+      registers[reg].value = 0;
+    }
+
+    setRegisters({ ...registers });
+    setMemory(initMem());
+    setInstList([]);
+    onBuild();
   };
 
   return (

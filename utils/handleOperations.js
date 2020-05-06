@@ -9,7 +9,6 @@ export default function handleOperations(
   let opArray = operation.split(" ");
   switch (opArray[0]) {
     case "add":
-      console.log("Operation Array", opArray);
       ISA.add(
         registers[opArray[1]],
         registers[opArray[2]],
@@ -28,5 +27,9 @@ export default function handleOperations(
     case "store":
       ISA.store(registers[opArray[1]], opArray[2], memory);
       setMemory([...memory]);
+      break;
+    case "add_now":
+      ISA.add_now(registers[opArray[1]], registers[opArray[2]], opArray[3]);
+      break;
   }
 }
